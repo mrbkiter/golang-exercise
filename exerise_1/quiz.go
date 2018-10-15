@@ -20,9 +20,7 @@ func main() {
 			question := strings.Split(row, ",")
 			fmt.Printf("Question #%d: %s \n", index+1, question[0])
 			userAns, _ := reader.ReadString('\n')
-			fmt.Printf("Ans: %s, UserAns: %s", question[1], userAns)
 			if strings.Compare(strings.Trim(userAns, " \n"), strings.Trim(question[1], " \n")) == 0 {
-				fmt.Println("AAAAAAA")
 				noOfRightAns = noOfRightAns + 1
 			}
 		}
