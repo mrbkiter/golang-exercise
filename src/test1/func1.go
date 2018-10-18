@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"testlib/test2"
 )
 
 /* define a circle */
@@ -13,6 +14,7 @@ type Circle struct {
 
 /* define a method for circle */
 func (circle Circle) area() float64 {
+	test2.test2()
 	return math.Pi * circle.radius * circle.radius
 }
 
