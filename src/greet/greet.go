@@ -1,5 +1,7 @@
-package greet
+package greet1
 
-//MORNING is exposed variable
-var MORNING = "Morning is exposed"
-var moring = "private variable"
+import "fmt"
+
+func helloWorld1() {
+	fmt.Println("Hello world from greet.go")
+}
