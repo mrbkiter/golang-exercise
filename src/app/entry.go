@@ -6,7 +6,7 @@ import (
 	"greet/stringutil"
 )
 
-func main() {
+func main1() {
 	fmt.Println("This is main function")
 	fmt.Printf("greet.MORNING= %s \n", greet1.MORNING)
 	fmt.Printf("Calling external package: %s \n", stringutil.Prefix("calling"))
