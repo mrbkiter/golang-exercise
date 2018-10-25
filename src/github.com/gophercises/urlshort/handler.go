@@ -15,8 +15,8 @@ func MapHandler(pathsToUrls map[string]string, fallback http.Handler) http.Handl
 	//	TODO: Implement this...
 
 	for k := range pathsToUrls {
-		fmt.Printf("key=%s, value=%s", k, pathsToUrls[k])
-		http.HandlerFunc()
+		fmt.Printf("key=%s, value=%s\n", k, pathsToUrls[k])
+
 	}
 	return nil
 }
