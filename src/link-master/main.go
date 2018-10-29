@@ -6,6 +6,8 @@ import (
 	"os"
 	"strings"
 
+	customstrings "customutils/strings"
+
 	html "golang.org/x/net/html"
 )
 
@@ -36,7 +38,7 @@ func CollectLinks(n *html.Node, linkMap map[string]Link, host string, scheme str
 					link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: host, Scheme: scheme}
 					linkMap[BuildURL(scheme, host, _url.Path)] = link
 
-				} else if _url.Host == host || strings.Contains(_url.Host, "."+host) {
+				} else if _url.Host == host || customstrings.ContainEnd(_url.Host, "."+host) {
 					link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: _url.Host, Scheme: _url.Scheme}
 					linkMap[BuildURL(_url.Scheme, _url.Host, _url.Path)] = link
 					//*aList = append(*linkMap, link)
