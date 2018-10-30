@@ -12,7 +12,8 @@ import (
 )
 
 func main() {
-	filepath := "D:/projects/golang/exercises/src/link-master/ex3.html"
+	//filepath := "D:/projects/golang/exercises/src/link-master/ex3.html"
+	filepath := ".\\src\\link-master\\ex3.html"
 	file, error := os.Open(filepath)
 	if error != nil {
 		panic(error)
@@ -33,17 +34,26 @@ func CollectLinks(n *html.Node, linkMap map[string]Link, host string, scheme str
 	if n.Type == html.ElementNode && n.Data == "a" {
 		for _, a := range n.Attr {
 			if a.Key == "href" && a.Val != "#" {
-				_url, _ := url.Parse(a.Val)
+				_url, error := url.Parse(a.Val)
+				if error != nil {
+					fmt.Printf(error.Error())
+					return
+				}
 				if _url.Host == "" {
-					link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: host, Scheme: scheme}
+					//link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: host, Scheme: scheme}
+					link := Link{Href: _url.Path, Host: host, Scheme: scheme}
 					linkMap[BuildURL(scheme, host, _url.Path)] = link
 
 				} else if _url.Host == host || customstrings.ContainEnd(_url.Host, "."+host) {
-					link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: _url.Host, Scheme: _url.Scheme}
-					linkMap[BuildURL(_url.Scheme, _url.Host, _url.Path)] = link
+					_scheme := _url.Scheme
+					if _url.Scheme == "" {
+						_scheme = scheme
+					}
+					link := Link{Href: _url.Path, Host: _url.Host, Scheme: _scheme}
+					linkMap[BuildURL(_scheme, _url.Host, _url.Path)] = link
 					//*aList = append(*linkMap, link)
 				} else if host == "" {
-					link := Link{Href: _url.Path, Text: n.FirstChild.Data, Host: _url.Host, Scheme: _url.Scheme}
+					link := Link{Href: _url.Path, Host: _url.Host, Scheme: _url.Scheme}
 					linkMap[BuildURL(_url.Scheme, _url.Host, _url.Path)] = link
 				} else {
 					fmt.Printf("Host %s not accepted\n", _url.Host)
